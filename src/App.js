@@ -11,8 +11,20 @@ function App() {
 
 function Counter() {
   const [step, setStep] = useState(1);
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(0);
+  const today = new Date();
   
+  function formatDate(date) {
+    date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+    return date;
+  }
+
+  function getDaysFromToday(count) {
+    const today = new Date();
+    today.setDate(today.getDate() + count);
+    return today;
+  }
+
   function increaseStep() {
     setStep((s) => s + 1);
   }
@@ -22,11 +34,11 @@ function Counter() {
   }
 
   function increaseCount() {
-    setCount((s) => s + 1);
+    setCount((s) => s + step);
   }
 
   function decreaseCount() {
-    setCount((s) => s - 1);
+    setCount((s) => s - step);
   }
 
   return(
@@ -46,8 +58,8 @@ function Counter() {
       <br/>
 
       <div>
+        {count === 0 ? `Today is ${formatDate(today)}` : `${count} days from today is ${getDaysFromToday(count)}`};
         
-        {`Today is`} days from today is {'Wed Jul 21 2024'}
       </div>
     
     </>
